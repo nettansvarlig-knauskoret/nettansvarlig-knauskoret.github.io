@@ -25,17 +25,19 @@ function handleAuth(onAccept, onDenial) {
             discoveryDocs: DISCOVERY_DOCS,
             scope: SCOPES
         })
-        .then(function () {
+        .then(function() {
             gapi.auth2.getAuthInstance().isSignedIn.listen(onSignInUpdate);
             onSignInUpdate(gapi.auth2.getAuthInstance().isSignedIn.get()); //Sjekk på om man allerede er innlogget
         })
-        .catch(function(err) {
+        .catch(err => {
             console.error(err);
-            // console.log("Resetting localStorage instances for CLIENT_ID and API_KEY."); //Sannsynligvis derfor det blir feil, men er er det nok rom for en smartere sjekk/løsning.
-            // localStorage.removeItem("CLIENT_ID"); 
-            // localStorage.removeItem("API_KEY");
-            // console.log("Redirecting to index.html.");
-            // location.replace("index.html");
+            alertError(err, "handleAuth");
+            alert("Du blir nå sendt tilbake til startsiden, og må skrive inn CLIENT_ID og API_KEY på nytt.");
+            console.log("Resetting localStorage instances for CLIENT_ID and API_KEY."); //Sannsynligvis derfor det blir feil, men er er det nok rom for en smartere sjekk/løsning.
+            localStorage.removeItem("CLIENT_ID"); 
+            localStorage.removeItem("API_KEY");
+            console.log("Redirecting to index.html.");
+            location.replace("index.html");
         });
     });
 }
@@ -50,4 +52,15 @@ function handleSignOut() {
     gapi.auth2.getAuthInstance().signOut();
 }
 
-export {handleAuth, handleSignIn, handleSignOut};
+//For å informere bruker om feilmeldinger:
+function alertError(err, source) {
+    let alertMessage = "";
+    alertMessage += "Feilmelding! Vennligst send skjermbilde av denne meldingen til nettansvarlig.\n"
+    alertMessage += "CLIENT_ID: " + localStorage.getItem("CLIENT_ID") + "\n";
+    alertMessage += "API_KEY: " + localStorage.getItem("API_KEY") + "\n";
+    alertMessage += "Source of error: " + source + "\n";
+    alertMessage += "Error: " + JSON.stringify(err);
+    alert(alertMessage);
+}
+
+export {handleAuth, handleSignIn, handleSignOut, alertError};

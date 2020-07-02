@@ -1,4 +1,4 @@
-import {handleAuth, handleSignOut} from "./modules/auth.mjs";
+import {handleAuth, handleSignOut, alertError} from "./modules/auth.mjs";
 import {QUOTEJSONID, PRJCTFLDRID} from "./modules/constants.mjs";
 
 import * as QDOMI from "./modules/QDOMI.mjs";
@@ -6,11 +6,16 @@ import * as QGDI from "./modules/QGDI.mjs";
 import { Quote } from "./modules/quote.mjs";
 
 let accessToken; //Brukes av appendJsonQuote under, må være global
+const quoteContainer = document.querySelector("#quoteContainer"); //Brukes av onAccept, er tydeligere å ha den her oppe
 
 function onAccept() {
 	accessToken = gapi.auth.getToken().access_token; 
 	//QGDI.makeJsonQuoteFile(PRJCTFLDRID, "sitater.json", accessToken).then(console.log);
-	QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken);
+	QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken)
+	.catch(err => {
+		console.error(err);
+		alertError(err, "displayJsonQuotes in sitatside.html onAccept");
+	});
 }
 
 function onDenial() {
@@ -24,7 +29,6 @@ window.onload = function() {
 
 //---------------------------------------------------------
 
-const quoteContainer = document.querySelector("#quoteContainer");
 const signOutSpan = document.querySelector("#signOutSpan");
 const toTopSpan = document.querySelector("#toTopSpan");
 const toBottomSpan = document.querySelector("#toBottomSpan");
@@ -84,7 +88,10 @@ quoteForm.onsubmit = async function(e) {
 	let newQuote = new Quote(quoteText, metaInfo, quotee, dd, mm, yyyy);
 	if (newQuote.isValid()) {
 		await QGDI.appendJsonQuote(newQuote, QUOTEJSONID, accessToken)
-		.catch(err => console.error(err)); 
+		.catch(err => {
+			console.error(err);
+			alertError(err, "appendJsonQuote in quoteForm.onsubmit");
+		}); 
 		quoteForm.reset();
 		setTimeout(location.reload.bind(location), 3000); //Må bruke "bind" pga "this" skal peke på det rette i reload-funksjonen
 		console.log("Page reload scheduled in 3 seconds."); 

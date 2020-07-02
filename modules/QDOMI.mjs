@@ -1,7 +1,7 @@
 //QDOMI står for Quote DOM Interface
 
-import {Quote} from "./quote.mjs";
-import {makeJsonQuoteFile, getJsonContent, appendJsonQuote, deleteJsonQuote} from "./QGDI.mjs"; // * krever "as QGDI", som igjen gjør at Quote blir QGDI.Quote, som er ekkelt
+import {getJsonContent, deleteJsonQuote} from "./QGDI.mjs"; // * krever "as QGDI", som igjen gjør at Quote blir QGDI.Quote, som er ekkelt
+import {alertError} from "./auth.mjs";
 
 function displayQuote(quoteContainer, quote, quoteIndex, fileId, accessToken) {
 	let quoteDiv = document.createElement('div');
@@ -27,7 +27,10 @@ function displayQuote(quoteContainer, quote, quoteIndex, fileId, accessToken) {
 	quoteDeleteSpan.onclick = async function() {
 		if (confirm("Er du sikker på at du vil slette dette sitatet?")) {
 			await deleteJsonQuote(quoteIndex, fileId, accessToken)
-			.catch(err => console.error(err)); 
+			.catch(err => {
+				console.error(err);
+				alertError(err, "deleteJsonQuote in quoteDeleteSpan.onclick");
+			}); 
 			setTimeout(location.reload.bind(location), 3000);
 			console.log("Page reload scheduled in 3 seconds."); 
 		}
@@ -61,7 +64,7 @@ function displayQuote(quoteContainer, quote, quoteIndex, fileId, accessToken) {
 }
 
 function displayJsonQuotes(quoteContainer, fileId, accessToken) { 
-	getJsonContent(fileId, accessToken)
+	return getJsonContent(fileId, accessToken)
 	.then(quoteArray => {
 		quoteContainer.innerHTML = ""; //Fjerne eventuelle quotes fra før
 		quoteContainer.classList.remove("loading"); 
@@ -73,7 +76,7 @@ function displayJsonQuotes(quoteContainer, fileId, accessToken) {
 		else {
 			quoteContainer.innerHTML = "Ingen sitater enda :(";
 		}
-	}).catch(err => console.error(err));
+	});
 }
 
-export {displayQuote, displayJsonQuotes};
+export {displayJsonQuotes};
