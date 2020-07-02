@@ -1,9 +1,9 @@
 if (localStorage.getItem("CLIENT_ID") === null) {
-    localStorage.setItem("CLIENT_ID", prompt("Vennligst skriv inn CLIENT_ID:"));
+    localStorage.setItem("CLIENT_ID", prompt("Vennligst skriv inn CLIENT_ID:").trim());
 }
 
 if (localStorage.getItem("API_KEY") === null) {
-    localStorage.setItem("API_KEY", prompt("Vennligst skriv inn API_KEY:"));
+    localStorage.setItem("API_KEY", prompt("Vennligst skriv inn API_KEY:").trim());
 }
 
 const CLIENT_ID = localStorage.getItem("CLIENT_ID");
