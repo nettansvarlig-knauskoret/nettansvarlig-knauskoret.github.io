@@ -1,4 +1,4 @@
 # nettansvarlig-knauskoret.github.io
 Knauskoret Internsider
 
-Statisk nettside hostet med GitHub Pages.
+Statisk nettsted hostet med GitHub Pages.
