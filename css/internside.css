@@ -1,0 +1,61 @@
+@import "./standards.css";
+
+body,html {
+    background-color: var(--bckgndGray); 
+    color: var(--defaultFontColor);
+    font-size: var(--defaultFontSize);
+    font-family: var(--defaultFont);
+
+    height: 100vh;
+    width: 100%; 
+    margin: 0; /*Bli kvitt body default margin*/
+}
+
+header {
+    background-color: #000;
+    width: 100%;
+    height: 122px; 
+    padding: 8px 0; /*Skal etterligne body default margin*/
+
+    display: flex;
+    align-items: center;
+    /*Kan fort bli fornuftig med en justify-content: flex-start; her*/
+}
+
+header img {
+    height: 100%;
+    margin-left: 50px;
+}
+
+header > *:not(img) { /*hadde "*" her opprinnelig, men den strakk bildet... Målgruppen her er alt med tekst inni*/
+    flex-grow: 1;
+    text-align: center;
+}
+
+#signOutSpan {
+    flex-grow: 0;
+    margin: 20px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+}
+
+#signOutSpan span {
+    font-family: var(--defaultFont, Arial);
+    font-size: var(--defaultFontSize);
+    margin-left: 8px;
+}
+
+main {
+    background-color: var(--bckgndGray);
+    padding: 8px 0;
+    
+    width:100%;
+}
+
+/* Kunne gjort noe generelt her 
+.loading { 
+
+} */

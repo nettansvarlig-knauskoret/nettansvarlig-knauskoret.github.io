@@ -1,0 +1,41 @@
+@import "./standards.css";
+
+body,html {
+    height: 100vh;
+    overflow: hidden;
+
+    background-color: #000;
+
+    color: var(--defaultFontColor);
+    font-family: var(--defaultFont, Arial);
+    font-size: var(--headingFontSize);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    width: 30vh;
+    filter: invert(100%);
+}
+
+h2 {
+    font-style: italic;
+}
+
+#signInSpan {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+}
+
+#signInSpan span {
+    font-family: var(--defaultFont, Arial);
+    font-size: var(--defaultFontSize);
+    margin-left: 8px;
+}

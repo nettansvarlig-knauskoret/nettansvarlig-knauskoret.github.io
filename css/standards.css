@@ -1,0 +1,11 @@
+:root {
+    --bckgndGray: #333;
+    --quoteBckgnd: #222;
+    --formBorderGray: #666;
+    --defaultFontColor: #fff;
+    --subFontColor: #999;
+    --defaultFontSize: 16px;
+    --headingFontSize: 25px;
+    --defaultFont: monospace; /*Endre gjerne*/
+} 
+

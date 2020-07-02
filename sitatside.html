@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Knauskoret Sitatside</title>
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" href="./css/sitatside.css">
+    <link rel="stylesheet" href="./css/fontawesome-free-5.13.1-web/css/all.css">
+  </head>
+  <body>
+    <header>
+      <img src="images/invertertlogo.png" alt="Knauskorlogo">
+      <h1>Sitatsidene</h1>
+      <!-- Her er det naturlig å gjøre h1-en om til "Internsidene" og lage h2-linker etter hvert som internsidene får mer innhold -->
+      <span id="signOutSpan" class="fas fa-sign-out-alt"> 
+        <span>Logg ut</span>
+      </span>
+    </header>
+    <main>
+      <div id="stickyPathDiv"> 
+        <details> 
+          <summary>Send sitat</summary>
+          <!--Forvirrende? Les https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details -->
+          <form id="quoteForm" novalidate>
+            <!--Spansene er for at det skal være enkelt å jobbe med i form-CSSgriden-->
+            <!--Skulle ønske det var en mindre stygg måte å kommunisere med grid-templaten på (veldig mange span-id-er...) -->
+            <span id="quoteTextInputSpan">
+              <label for="quoteTextInput">Sitat:</label>
+              <textarea id="quoteTextInput"></textarea>
+            </span>
+            <span id="quoteeInputSpan">
+              <label for="quoteeInput">Opphav:</label>
+              <textarea id="quoteeInput"></textarea>
+            </span>
+            <span id="ddmmyyyyInputSpan">
+              <label for="ddmmyyyyInput">Dato:</label>
+              <input type="date" id="ddmmyyyyInput">
+            </span>
+            <span id="metaInfoInputSpan">
+              <label for="metaInfoInput">Tilleggsinfo:</label>
+              <textarea id="metaInfoInput"></textarea>
+            </span>
+            <span id="quoteSubmitBtnSpan">
+              <input type="submit" id="quoteSubmitBtn" value="Send">
+            </span>
+          </form>    
+        </details>
+        
+      </div>
+
+      <div id="quoteContainer" class="loading">↻</div>
+
+      <span id="toTopSpan" class="fas fa-chevron-circle-up"></span>
+      <span id="toBottomSpan" class="fas fa-chevron-circle-down"></span>
+
+    </main>
+
+    <script async defer src="https://apis.google.com/js/api.js"></script>
+    <script async defer type="module" src="./sitatside.mjs"></script>
+    <!-- Burde legge inn en script nomodule her ~ -->
+
+</body>
+</html>

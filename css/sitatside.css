@@ -1,0 +1,232 @@
+@import "./standards.css";
+@import "./internside.css";
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#toTopSpan {
+    position: fixed;
+    right: 30px;
+    bottom: 85px;
+
+    font-size: 40px;
+
+    cursor: pointer;
+}
+
+#toBottomSpan {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+
+    font-size: 40px;
+
+    cursor: pointer;
+}
+
+/*QUOTEFORM:-----------------------------------------------------------*/
+
+
+#stickyPathDiv { /*Formålet med denne div-en er å ha en sticky quoteForm (quoteForm er child av denne diven) som ikke tar opp plass i main-flexboxen. position: absolute tar diven og dermed quoteFormen ut av "flexbox-flowen".*/
+    height: 100%;
+    width: auto;
+    position: absolute;
+
+    /*Det under her kan man tenke på som det jeg ville gjort med en sticky absolute-quoteForm hvis sticky absolute fantes.*/
+    align-self: flex-start; 
+    padding: 0 10px; 
+
+}
+
+details {
+    height: auto;
+    background-color: var(--quoteBckgnd);
+    padding: 10px;
+
+    z-index: 1; /*Formen gikk bak "loading"-pilen før*/
+
+    border: 1px solid white;
+    border-radius: 20px;
+
+    position: sticky;
+    top: 8px; /*Når den er i "fixed-sticky-modus" er den 8 px fra toppen av skjermen*/
+}
+
+summary {
+    cursor: pointer;
+    outline: none;
+}
+
+details[open] summary ~ * { /*Alle elementer som er har details[open] som ancestor, og som kommer etter et summary-element. Viktig distinksjon mellom ~ og +, men det gjør ingenting i dette tilfellet.*/
+    animation: fadeIn .1s linear;
+}
+
+@keyframes fadeIn {
+    0%    {opacity: 0}
+    100%  {opacity: 1}
+}
+
+#quoteForm {
+    width: 300px;
+    margin: 10px 5px 5px 5px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "quoteTextInput quoteTextInput"
+      "quoteeInput quoteeInput"
+      "ddmmyyyyInput ddmmyyyyInput"
+      "metaInfoInput metaInfoInput"
+      ". quoteSubmitBtn";
+    gap: 6px; /*Tenk på det som en margin som ikke ødelegger størrelsen på ting*/
+}
+
+#quoteForm span {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#quoteForm input,textarea {
+    display: block;
+    width: 90%;
+    outline: none; 
+    border: 3px solid var(--formBorderGray);
+    border-radius: 10px;
+    padding: 2px;
+
+    align-self: center;
+
+    font-family: var(--defaultFont);
+    font-size: var(--defaultFontSize); /*Kan diskuteres*/
+}
+
+#quoteForm textarea { /* Selv om span er nærmeste forelder er inputen en etterkommer av #quoteForm */
+    resize: none;
+}
+
+#quoteForm label { /*Bare flytte dem litt mot høyre */
+    position: relative;
+    left: 20px;
+}
+
+#quoteTextInputSpan { 
+    grid-area: quoteTextInput;
+}
+
+#quoteTextInputSpan textarea { 
+    height: 4.6em;
+}
+
+#metaInfoInputSpan {
+    grid-area: metaInfoInput;
+}
+
+#metaInfoInputSpan textarea {
+    height: 3.6em;
+}
+
+#quoteeInputSpan {
+    grid-area: quoteeInput;
+}
+
+#quoteeInputSpan textarea {
+    height: 1.5em;
+}
+
+#ddmmyyyyInputSpan {
+    grid-area: ddmmyyyyInput;
+}
+
+#ddmmyyyyInputSpan input {
+    height: 1.5em;
+}
+
+#quoteSubmitBtnSpan {
+    grid-area: quoteSubmitBtn;
+    margin-top: 6px;
+}
+
+#quoteSubmitBtnSpan input {
+    align-self: flex-start;
+}
+
+/*QUOTES----------------------------------------------------------------*/
+
+.quote {
+    width: 60vw;
+    margin: 16px;
+    padding: 12px;
+
+    font-size: 20px;
+
+    background-color: var(--quoteBckgnd);
+    border: 1px solid white;
+    border-radius: 20px;
+    
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "quoteText quoteText quoteText quoteText quoteDeleteSpan"
+      "quoteText quoteText quoteText quoteText ."
+      "quoteeMeta quoteeMeta quoteeMeta quoteDate quoteDate";
+    justify-items: center;
+    align-items: center;
+    /*Ingen gap*/
+}
+
+.quote > * {
+    margin: 6px;
+}
+
+.quote .quoteText {
+    font-style: italic;
+    grid-area: quoteText;
+}
+
+.quote .quoteDeleteSpan {
+    grid-area: quoteDeleteSpan;
+    color: var(--subFontColor);
+    cursor: pointer;
+}
+
+.quote .quoteeMeta {
+    grid-area: quoteeMeta;
+    font-size: 16px;
+    color: var(--subFontColor);
+}
+
+.quote .quoteDate {
+    grid-area: quoteDate;
+    font-size: 16px;
+    color: var(--subFontColor);
+}
+
+#quoteContainer.loading {
+    height: 50vw;
+    width: 50vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 20em;
+    color: var(--quoteBckgnd);
+
+    animation: loadRotate 1s infinite ease-in-out;
+}
+
+@keyframes loadRotate {
+    0%    {transform: rotate(0deg)}
+    100%  {transform: rotate(360deg)}
+}
+
+#quoteContainer:not(.loading) { /*Etter den har loadet*/
+    margin-bottom: 70px;
+}
+
