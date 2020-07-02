@@ -31,11 +31,11 @@ function handleAuth(onAccept, onDenial) {
         })
         .catch(function(err) {
             console.error(err);
-            console.log("Resetting localStorage instances for CLIENT_ID and API_KEY."); //Sannsynligvis derfor det blir feil, men er er det nok rom for en smartere sjekk/løsning.
-            localStorage.removeItem("CLIENT_ID"); 
-            localStorage.removeItem("API_KEY");
-            console.log("Redirecting to index.html.");
-            location.replace("index.html");
+            // console.log("Resetting localStorage instances for CLIENT_ID and API_KEY."); //Sannsynligvis derfor det blir feil, men er er det nok rom for en smartere sjekk/løsning.
+            // localStorage.removeItem("CLIENT_ID"); 
+            // localStorage.removeItem("API_KEY");
+            // console.log("Redirecting to index.html.");
+            // location.replace("index.html");
         });
     });
 }
