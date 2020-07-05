@@ -8,19 +8,9 @@ import { Quote } from "./modules/quote.mjs";
 let accessToken; //Brukes av appendJsonQuote under, må være global
 const quoteContainer = document.querySelector("#quoteContainer"); //Brukes av onAccept, er tydeligere å ha den her oppe
 
-async function onAccept() {
+function onAccept() { //OBS! Gjør async hvis du vil awaite noe
 	accessToken = gapi.auth.getToken().access_token; 
-	let tempId;
-	await QGDI.makeJsonQuoteFile(PRJCTFLDRID, "test1.json", accessToken)
-	.then(id => {
-		console.log(id);
-		tempId = id;
-	})
-	.catch(err => {
-		console.error(err);
-		alertError(err, "makeJsonQuoteFile in sitatside.html onAccept");
-	});
-	await QDOMI.displayJsonQuotes(quoteContainer, tempId, accessToken)
+	QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken)
 	.catch(err => {
 		console.error(err);
 		alertError(err, "displayJsonQuotes in sitatside.html onAccept");

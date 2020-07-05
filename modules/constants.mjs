@@ -11,7 +11,7 @@ const API_KEY = localStorage.getItem("API_KEY");
 const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
 const SCOPES = "https://www.googleapis.com/auth/drive.file"; 
 
-const QUOTEJSONID = "1Oiiun0z7W0YCY7P0dpfAIAaTSomyaGwL"; 
+const QUOTEJSONID = "1ubVdAXHSgywx-BnEtAZCIk5tKwni9jyd"; 
 const PRJCTFLDRID = "1afKJpLhZLM2RSpqLx8Lft4Z6Lo4vByGF"; 
 
 export {CLIENT_ID, API_KEY, DISCOVERY_DOCS, SCOPES, QUOTEJSONID, PRJCTFLDRID};
