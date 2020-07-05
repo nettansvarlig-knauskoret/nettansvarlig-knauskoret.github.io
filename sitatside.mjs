@@ -10,6 +10,7 @@ const quoteContainer = document.querySelector("#quoteContainer"); //Brukes av on
 
 function onAccept() { //OBS! Gjør async hvis du vil awaite noe
 	accessToken = gapi.auth.getToken().access_token; 
+	QGDI.getFilePermissions(QUOTEJSONID, accessToken).then(console.log);
 	QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken)
 	.catch(err => {
 		console.error(err);

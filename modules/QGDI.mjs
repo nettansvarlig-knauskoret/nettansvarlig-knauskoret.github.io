@@ -26,6 +26,24 @@ function getJsonContent(fileId, accessToken) {
 	}); 
 }
 
+function getFilePermissions(fileId, accessToken) {
+	let url = "https://www.googleapis.com/drive/v3/files/" + fileId + "/permissions";
+	console.log("Sending permissions read request.");
+
+	return fetch(url, {
+		'headers': {'Authorization': "Bearer " + accessToken}
+	})
+	.then(response => {
+		if (response.ok) {
+			console.log("Permissions read successful.");
+			return response.json();
+		}
+		else {
+			throw "Permissions read unsuccessful."; 
+		}
+	});
+}
+
 function makeJsonQuoteFile(parentId, fileName, accessToken) { 
 	let url = "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id&keepRevisionForever=true&supportsAllDrives=true"; //Kan spesifisere fields som URL-parameter
 	console.log("Sending JSON creation request.");
@@ -123,4 +141,4 @@ function deleteJsonQuote(quoteIndex, fileId, accessToken) {
 	}); //Vil tro at et rejected promise fra den innerste fetchen vil bubble ut og få den ytre "then"-en til å rejecte også
 }
 
-export {makeJsonQuoteFile, getJsonContent, appendJsonQuote, deleteJsonQuote};
+export {makeJsonQuoteFile, getFilePermissions, getJsonContent, appendJsonQuote, deleteJsonQuote};
