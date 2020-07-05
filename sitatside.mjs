@@ -8,10 +8,19 @@ import { Quote } from "./modules/quote.mjs";
 let accessToken; //Brukes av appendJsonQuote under, må være global
 const quoteContainer = document.querySelector("#quoteContainer"); //Brukes av onAccept, er tydeligere å ha den her oppe
 
-function onAccept() {
+async function onAccept() {
 	accessToken = gapi.auth.getToken().access_token; 
-	//QGDI.makeJsonQuoteFile(PRJCTFLDRID, "sitater.json", accessToken).then(console.log);
-	QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken)
+	let tempId;
+	await QGDI.makeJsonQuoteFile(PRJCTFLDRID, "test1.json", accessToken)
+	.then(id => {
+		console.log(id);
+		tempId = id;
+	})
+	.catch(err => {
+		console.error(err);
+		alertError(err, "makeJsonQuoteFile in sitatside.html onAccept");
+	});
+	await QDOMI.displayJsonQuotes(quoteContainer, tempId, accessToken)
 	.catch(err => {
 		console.error(err);
 		alertError(err, "displayJsonQuotes in sitatside.html onAccept");

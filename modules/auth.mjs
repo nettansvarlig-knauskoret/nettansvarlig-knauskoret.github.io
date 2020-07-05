@@ -1,4 +1,4 @@
-import {CLIENT_ID, API_KEY, DISCOVERY_DOCS, SCOPES} from "./constants.mjs";
+import {CLIENT_ID, API_KEY, QUOTEJSONID, DISCOVERY_DOCS, SCOPES} from "./constants.mjs";
 
 //Dette er en abstraksjon av alt som har med autentisering å gjøre.
 //Det er en komprimering av det som skjer her: https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow
@@ -58,6 +58,7 @@ function alertError(err, source) {
     alertMessage += "Feilmelding! Vennligst send skjermbilde av denne meldingen til nettansvarlig.\n"
     alertMessage += "CLIENT_ID: " + localStorage.getItem("CLIENT_ID") + "\n";
     alertMessage += "API_KEY: " + localStorage.getItem("API_KEY") + "\n";
+    alertMessage += "QUOTEJSONID: " + QUOTEJSONID + "\n"; 
     alertMessage += "Source of error: " + source + "\n";
     alertMessage += "Error: " + JSON.stringify(err);
     alert(alertMessage);
