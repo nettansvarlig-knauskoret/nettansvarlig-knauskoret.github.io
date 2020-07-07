@@ -10,7 +10,6 @@ const quoteContainer = document.querySelector("#quoteContainer"); //Brukes av on
 
 function onAccept() { //OBS! Gjør async hvis du vil awaite noe
 	accessToken = gapi.auth.getToken().access_token; 
-	QGDI.getFilePermissions(QUOTEJSONID, accessToken).then(console.log);
 	QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken)
 	.catch(err => {
 		console.error(err);
@@ -93,8 +92,8 @@ quoteForm.onsubmit = async function(e) {
 			alertError(err, "appendJsonQuote in quoteForm.onsubmit");
 		}); 
 		quoteForm.reset();
-		setTimeout(location.reload.bind(location), 3000); //Må bruke "bind" pga "this" skal peke på det rette i reload-funksjonen
-		console.log("Page reload scheduled in 3 seconds."); 
+		console.log("Reloading page."); 
+		location.reload(); 
 	}
 	else {
 		alert("Ugyldig sitat, prøv på nytt.")

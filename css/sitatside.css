@@ -153,6 +153,11 @@ details[open] summary ~ * { /*Alle elementer som er har details[open] som ancest
 
 #quoteSubmitBtnSpan input {
     align-self: flex-start;
+    cursor: pointer;
+}
+
+#quoteSubmitBtnSpan input:focus {
+    outline: solid white 1px; /*Så det er synlig at man har trykket på knappen. Merk at dette gjelder knappen og ikke hele span-en.*/
 }
 
 /*QUOTES----------------------------------------------------------------*/

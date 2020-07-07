@@ -9,6 +9,8 @@ function Quote(quoteText, metaInfo, quotee, dd, mm, yyyy) {
 }
 
 Quote.prototype.isValid = function() {
+	if (this.quoteText === "") return false;
+	
 	let valid = true;
 	for (let p in this) { //OBS!! this refererer til Quoten!
 		if (this[p] !== undefined) {

@@ -20,7 +20,7 @@ function displayQuote(quoteContainer, quote, quoteIndex, fileId, accessToken) {
 	quoteDateSpan.classList.add("quoteDate");
 
 	//Gi dem innhold
-	quoteTextSpan.textContent = "\""+ quote.quoteText + "\"";
+	quoteTextSpan.textContent = `\"${quote.quoteText}\"`; 
 
 	quoteDeleteSpan.classList.add("fas");
 	quoteDeleteSpan.classList.add("fa-trash");
@@ -31,8 +31,8 @@ function displayQuote(quoteContainer, quote, quoteIndex, fileId, accessToken) {
 				console.error(err);
 				alertError(err, "deleteJsonQuote in quoteDeleteSpan.onclick");
 			}); 
-			setTimeout(location.reload.bind(location), 3000);
-			console.log("Page reload scheduled in 3 seconds."); 
+			console.log("Reloading page."); 
+			location.reload(); 
 		}
 	} 
 

@@ -27,7 +27,7 @@ function getJsonContent(fileId, accessToken) {
 }
 
 function getFilePermissions(fileId, accessToken) {
-	let url = "https://www.googleapis.com/drive/v3/files/" + fileId + "/permissions";
+	let url = "https://www.googleapis.com/drive/v3/files/" + fileId + "/permissions?supportsAllDrives=true";
 	console.log("Sending permissions read request.");
 
 	return fetch(url, {
