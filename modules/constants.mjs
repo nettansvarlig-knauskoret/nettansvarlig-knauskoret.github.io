@@ -9,7 +9,7 @@ if (localStorage.getItem("API_KEY") === null) {
 const CLIENT_ID = localStorage.getItem("CLIENT_ID");
 const API_KEY = localStorage.getItem("API_KEY");
 const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-const SCOPES = "https://www.googleapis.com/auth/drive"; 
+const SCOPES = "https://www.googleapis.com/auth/drive.file"; 
 
 const QUOTEJSONID = "1Oiiun0z7W0YCY7P0dpfAIAaTSomyaGwL";  
 const PRJCTFLDRID = "1afKJpLhZLM2RSpqLx8Lft4Z6Lo4vByGF"; 
