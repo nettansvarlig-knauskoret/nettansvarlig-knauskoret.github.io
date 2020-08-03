@@ -8,10 +8,10 @@ import { Quote } from "./modules/quote.mjs";
 let accessToken; //Brukes av appendJsonQuote under, må være global
 const quoteContainer = document.querySelector("#quoteContainer"); //Brukes av onAccept, er tydeligere å ha den her oppe
 
-function onAccept() { //OBS! Gjør async hvis du vil awaite noe
+async function onAccept() { //OBS! Gjør async hvis du vil awaite noe
 	accessToken = gapi.auth.getToken().access_token; 
 	if (localStorage.getItem("QUOTEJSONID") === null) {
-		QGDI.makeJsonQuoteFile(PRJCTFLDRID, "sitater.json", accessToken)
+		await QGDI.makeJsonQuoteFile(PRJCTFLDRID, "sitater.json", accessToken)
 		.then(id => {
 			localStorage.setItem("QUOTEJSONID", id);
 		})
@@ -20,15 +20,13 @@ function onAccept() { //OBS! Gjør async hvis du vil awaite noe
 			alertError(err, "makeJsonQuoteFile in sitatside.html onAccept");
 			console.log("Resetter PRJCTFLDRID.");
 			localStorage.removeItem("PRJCTFLDRID");
-		})
-	} else {
-		QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken)
-		.catch(err => {
-			console.error(err);
-			alertError(err, "displayJsonQuotes in sitatside.html onAccept");
 		});
 	}
-
+	QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken)
+	.catch(err => {
+		console.error(err);
+		alertError(err, "displayJsonQuotes in sitatside.html onAccept");
+	});
 }
 
 function onDenial() {
