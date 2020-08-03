@@ -10,11 +10,25 @@ const quoteContainer = document.querySelector("#quoteContainer"); //Brukes av on
 
 function onAccept() { //OBS! Gjør async hvis du vil awaite noe
 	accessToken = gapi.auth.getToken().access_token; 
-	QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken)
-	.catch(err => {
-		console.error(err);
-		alertError(err, "displayJsonQuotes in sitatside.html onAccept");
-	});
+	if (localStorage.getItem("QUOTEJSONID") === null) {
+		QGDI.makeJsonQuoteFile(PRJCTFLDRID, "sitater.json", accessToken)
+		.then(id => {
+			localStorage.setItem("QUOTEJSONID", id);
+		})
+		.catch(err => {
+			console.error(err);
+			alertError(err, "makeJsonQuoteFile in sitatside.html onAccept");
+			console.log("Resetter PRJCTFLDRID.");
+			localStorage.removeItem("PRJCTFLDRID");
+		})
+	} else {
+		QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken)
+		.catch(err => {
+			console.error(err);
+			alertError(err, "displayJsonQuotes in sitatside.html onAccept");
+		});
+	}
+
 }
 
 function onDenial() {
