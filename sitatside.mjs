@@ -22,7 +22,7 @@ function onAccept() { //OBS! Gjør async hvis du vil awaite noe
 			alertError(err, "makeJsonQuoteFile in sitatside.html onAccept");
 			console.log("Resetter PRJCTFLDRID.");
 			localStorage.removeItem("PRJCTFLDRID");
-		})
+		});
 	} else {
 		QDOMI.displayJsonQuotes(quoteContainer, QUOTEJSONID, accessToken)
 		.catch(err => {
